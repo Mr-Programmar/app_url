@@ -1,5 +1,6 @@
 import 'package:com.GLO365.glO365/provider/provider.dart';
 import 'package:com.GLO365.glO365/screens/snackbar.dart';
+import 'package:com.GLO365.glO365/screens/webview_appbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -72,9 +73,10 @@ class _WebviewState extends ConsumerState<Webview> {
   Widget build(BuildContext context) {
     var progress = useState(0.0);
     return WillPopScope(
-      onWillPop: () => showExitPopup(context, webViewController!),
+      onWillPop: () => webViewExit(context, webViewController),
       child: SafeArea(
         child: Scaffold(
+          appBar: webViewappBar(context, webViewController),
           body: Stack(children: [
             Column(children: [
               Expanded(

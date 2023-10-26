@@ -1,10 +1,10 @@
 import 'package:com.GLO365.glO365/screens/Exit_popup.dart';
 import 'package:com.GLO365.glO365/screens/enter_url.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../provider/provider.dart';
-import 'app_bar.dart';
 import 'bottem_navigation_bar.dart';
 import 'notification_screen.dart';
 
@@ -29,10 +29,23 @@ class _HomeState extends ConsumerState<Home> {
     final bottemNavValue = ref.watch(valueProvider);
 
     return WillPopScope(
-      onWillPop: () => showExitPopup(context),
+      onWillPop: () => showDialogApna(context),
       child: Scaffold(
         bottomNavigationBar: const BottemBar(),
-        appBar: buildAppBar(context, webcontroller),
+        appBar: AppBar(
+          title: const Text("app"),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showDialogApna(context);
+                },
+                icon: const Icon(
+                  CupertinoIcons.clear,
+                )),
+          ],
+          leading: const DrawerButton(),
+        ),
         body: _widgetOptions.elementAt(bottemNavValue),
       ),
     );

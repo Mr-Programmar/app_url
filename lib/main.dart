@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:com.GLO365.glO365/provider/provider.dart';
 import 'package:com.GLO365.glO365/screens/snackbar.dart';
-import 'package:com.GLO365.glO365/screens/enter_url.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -73,9 +72,9 @@ class _MyAppState extends ConsumerState<MyApp> {
       themeMode: ThemeMode.system,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      title: 'GLO365',
+      title: 'App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amberAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
       ),
       home: const Home(),
 
