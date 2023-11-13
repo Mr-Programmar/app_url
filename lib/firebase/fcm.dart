@@ -18,14 +18,7 @@ class Fcm {
 
       displyNotification(title: title.toString(), body: body.toString());
 
-      // // Store the notification data in Firestore
-      // await FirebaseFirestore.instance.collection('notifications').add({
-      //   'title': title,
-      //   'body': body,
-      //   'timestamp': FieldValue.serverTimestamp(),
-      // });
 
-      // FirebaseMessaging.onMessageOpenedApp
     });
   }
 
@@ -40,11 +33,7 @@ class Fcm {
     print("----On_background/OnTerminated---$body");
     displyNotification(title: title.toString(), body: body.toString());
 
-    // await FirebaseFirestore.instance.collection('notifications').add({
-    //   'title': title,
-    //   'body': body,
-    //   'timestamp': FieldValue.serverTimestamp(),
-    // });
+
   }
 
   static generateFCMDeviceToken() {

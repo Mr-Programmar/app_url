@@ -1,4 +1,4 @@
-package com.example.firebase_work
+package com.EllipseCloud.ellipsecloud
 
 import io.flutter.embedding.android.FlutterActivity
 

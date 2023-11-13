@@ -20,9 +20,10 @@
 
     <application
         android:requestLegacyExternalStorage="true"
-        android:label="In AppWebview Git"
+        android:label="Ellipse Cloud"
         android:name="${applicationName}"
 
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:icon="@mipmap/ic_launcher">
         <activity
 

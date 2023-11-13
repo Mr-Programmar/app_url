@@ -1,22 +1,24 @@
 import 'dart:async';
 
-import 'package:com.GLO365.glO365/provider/provider.dart';
-import 'package:com.GLO365.glO365/screens/snackbar.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:com.GLO365.glO365/screens/enter_url.dart';
+import 'package:com.GLO365.glO365/screens/splash%20Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase/fcm.dart';
-import 'screens/home.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final sharedPrefencesProvider = Provider<SharedPreferences>((ref) {
+  throw UnimplementedError();
+});
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   await Firebase.initializeApp();
   Fcm.generateFCMDeviceToken();
@@ -26,13 +28,10 @@ Future main() async {
   Fcm.listenAppFCM();
   Fcm.onOpenNotificationAction();
 
-  //admob
-  MobileAds.instance.initialize();
-
-  //enable full screen
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  runApp(const ProviderScope(
-      child: MaterialApp(
+  runApp(ProviderScope(
+      overrides: [sharedPrefencesProvider.overrideWithValue(prefs)],
+      child: const MaterialApp(
           debugShowCheckedModeBanner: false, home: Scaffold(body: MyApp()))));
 }
 
@@ -44,39 +43,32 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  final _connectivity = Connectivity();
-
   @override
   void initState() {
-    _connectivity.onConnectivityChanged.listen((result) {
-      if (result == ConnectivityResult.wifi ||
-          result == ConnectivityResult.mobile) {
-        print("-------------------------internet-----------------$result");
-
-        ref.read(webcontrollerprovider)?.reload();
-        CustomSnackBar.show(context, "Connection on", color: Colors.green);
-      } else {
-        print("-------------------------internet-----------------$result");
-
-        CustomSnackBar.show(context, "No Connection", color: Colors.red);
-      }
-    });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final webcontroller = ref.watch(webcontrollerprovider);
     return MaterialApp(
       themeMode: ThemeMode.system,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      title: 'App',
+      title: 'Ellipse Cloude',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+
+        colorScheme: ColorScheme.fromSeed(
+
+
+
+
+            seedColor: const Color(0xff1d2951)),
       ),
-      home: const Home(),
+      home:
+          //
+          // const EnterUrl(),
+
+          const Splash(),
 
       // Splash(),
     );

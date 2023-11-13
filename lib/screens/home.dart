@@ -1,11 +1,14 @@
 import 'package:com.GLO365.glO365/screens/Exit_popup.dart';
 import 'package:com.GLO365.glO365/screens/enter_url.dart';
+import 'package:com.GLO365.glO365/screens/snackbar.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../provider/provider.dart';
-import 'bottem_navigation_bar.dart';
+
+import 'flutter_bottem_navigation_bar.dart';
 import 'notification_screen.dart';
 
 class Home extends ConsumerStatefulWidget {
@@ -18,36 +21,46 @@ class Home extends ConsumerStatefulWidget {
 class _HomeState extends ConsumerState<Home> {
   static final List<Widget> _widgetOptions = <Widget>[
     const EnterUrl(),
-    const Text('Search Page'),
-    const Text('Profile Page'),
     const NotificationsScreen(),
+    const Text('Profile Page'),
+
   ];
 
   @override
   Widget build(BuildContext context) {
     final webcontroller = ref.watch(webcontrollerprovider);
-    final bottemNavValue = ref.watch(valueProvider);
+    final flutterBottemNavIndex = ref.watch(flutter_bottem_Provider);
 
-    return WillPopScope(
-      onWillPop: () => showDialogApna(context),
-      child: Scaffold(
-        bottomNavigationBar: const BottemBar(),
-        appBar: AppBar(
-          title: const Text("app"),
-          centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showDialogApna(context);
-                },
-                icon: const Icon(
-                  CupertinoIcons.clear,
-                )),
-          ],
-          leading: const DrawerButton(),
+    return SafeArea(
+      child: WillPopScope(
+        onWillPop: () => showDialogApna(context),
+        child: Scaffold(
+          bottomNavigationBar: FlutterBottemNavigationBar(),
+
+          body: _widgetOptions.elementAt(flutterBottemNavIndex),
         ),
-        body: _widgetOptions.elementAt(bottemNavValue),
       ),
     );
+  }
+
+
+
+  @override
+  void initState() {
+    final _connectivity = Connectivity();
+    _connectivity.onConnectivityChanged.listen((result) {
+      if (result == ConnectivityResult.wifi ||
+          result == ConnectivityResult.mobile) {
+        print("-------------------------internet-----------------$result");
+
+        // ref.read(webcontrollerprovider)?.reload();
+        CustomSnackBar.show(context, "Welcome", color: Colors.green);
+      } else {
+        print("-------------------------internet-----------------$result");
+
+        CustomSnackBar.show(context, "No Connection", color: Colors.red);
+      }
+    });
+    super.initState();
   }
 }

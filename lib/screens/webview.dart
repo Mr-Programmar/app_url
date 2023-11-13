@@ -74,104 +74,102 @@ class _WebviewState extends ConsumerState<Webview> {
     var progress = useState(0.0);
     return WillPopScope(
       onWillPop: () => webViewExit(context, webViewController),
-      child: SafeArea(
-        child: Scaffold(
-          appBar: webViewappBar(context, webViewController),
-          body: Stack(children: [
-            Column(children: [
-              Expanded(
-                child: InAppWebView(
-                  onWebViewCreated: (InAppWebViewController controller) {
-                    webViewController = controller;
-                    ref.read(webcontrollerprovider.notifier).state =
-                        webViewController;
-                  },
-                  initialUrlRequest: URLRequest(url: Uri.parse(widget.url!)),
-                  initialOptions: options,
-                  pullToRefreshController: pullToRefreshController,
-                  onProgressChanged: (controller, progresss) {
-                    ref.read(webViewProgressProvider.notifier).state =
-                        progresss;
+      child: Scaffold(
+        appBar: webViewappBar(context, webViewController),
+        body: Stack(children: [
+          Column(children: [
+            Expanded(
+              child: InAppWebView(
+                onWebViewCreated: (InAppWebViewController controller) {
+                  webViewController = controller;
+                  ref.read(webcontrollerprovider.notifier).state =
+                      webViewController;
+                },
+                initialUrlRequest: URLRequest(url: Uri.parse(widget.url!)),
+                initialOptions: options,
+                pullToRefreshController: pullToRefreshController,
+                onProgressChanged: (controller, progresss) {
+                  ref.read(webViewProgressProvider.notifier).state =
+                      progresss;
 
-                    print(
-                        "--------OnProgrss Change--${ref.read(webViewProgressProvider.notifier).state}");
-                    // if (progresss == 100) {
-                    //   pullToRefreshController?.endRefreshing();
-                    // }
+                  print(
+                      "--------OnProgrss Change--${ref.read(webViewProgressProvider.notifier).state}");
+                  // if (progresss == 100) {
+                  //   pullToRefreshController?.endRefreshing();
+                  // }
 
-                    progress.value = progresss / 100;
-                  },
-                  onLoadStop: (controller, url) async {
-                    print("---OnLoadStop-----");
-                    ref.read(webViewloadingProvider.notifier).state = false;
-                  },
-                  onLoadStart: (controller, url) {
-                    print("---OnLoadStart-----");
-                  },
-                  onLoadError: (controller, url, code, message) {
-                    print(
-                        "----------------loadError----------------------------$message");
-                    print(
-                        "---------------------loadError---------------------$code");
-                    print(
-                        "---------------------loadError---------------------$url");
+                  progress.value = progresss / 100;
+                },
+                onLoadStop: (controller, url) async {
+                  print("---OnLoadStop-----");
+                  ref.read(webViewloadingProvider.notifier).state = false;
+                },
+                onLoadStart: (controller, url) {
+                  print("---OnLoadStart-----");
+                },
+                onLoadError: (controller, url, code, message) {
+                  print(
+                      "----------------loadError----------------------------$message");
+                  print(
+                      "---------------------loadError---------------------$code");
+                  print(
+                      "---------------------loadError---------------------$url");
 
-                    CustomSnackBar.show(context, message, color: Colors.red);
-                  },
-                  onConsoleMessage: (controller, consoleMessage) {
-                    print(
-                        "-----------------------------onconsole messgae----------------$consoleMessage");
-                  },
-                  onLoadHttpError: (controller, UUri, innt, SString) {
-                    print(
-                        "-----------------------httpError---------------------$UUri");
-                    print(
-                        "----------------------httpError----------------------$innt");
-                    print(
-                        "-----------------------httpError---------------------$SString");
-                  },
-                  onDownloadStartRequest:
-                      (controller, downloadStartRequest) async {
-                    print("-------onDownloadStartRequest--------");
-                    final url = downloadStartRequest.url;
-                    print(
-                        "=====================================================$url");
+                  CustomSnackBar.show(context, message, color: Colors.red);
+                },
+                onConsoleMessage: (controller, consoleMessage) {
+                  print(
+                      "-----------------------------onconsole messgae----------------$consoleMessage");
+                },
+                onLoadHttpError: (controller, UUri, innt, SString) {
+                  print(
+                      "-----------------------httpError---------------------$UUri");
+                  print(
+                      "----------------------httpError----------------------$innt");
+                  print(
+                      "-----------------------httpError---------------------$SString");
+                },
+                onDownloadStartRequest:
+                    (controller, downloadStartRequest) async {
+                  print("-------onDownloadStartRequest--------");
+                  final url = downloadStartRequest.url;
+                  print(
+                      "=====================================================$url");
 
-                    if (!url.hasEmptyPath) {
-                      CustomSnackBar.show(context, "Downloading Start Soon",
-                          color: Colors.green);
-                    }
+                  if (!url.hasEmptyPath) {
+                    CustomSnackBar.show(context, "Downloading Start Soon",
+                        color: Colors.green);
+                  }
 
-                    MediaDownload().downloadMedia(
-                      context,
-                      "$url",
-                    );
-                  },
-                  shouldOverrideUrlLoading:
-                      (controller, navigationAction) async {
-                    print("--------shouldoverridingLoading---");
+                  MediaDownload().downloadMedia(
+                    context,
+                    "$url",
+                  );
+                },
+                shouldOverrideUrlLoading:
+                    (controller, navigationAction) async {
+                  print("--------shouldoverridingLoading---");
 
-                    var uri = navigationAction.request.url!;
-                    if (uri.toString().startsWith("whatsapp://")) {
-                      whatsap(uri.toString());
+                  var uri = navigationAction.request.url!;
+                  if (uri.toString().startsWith("whatsapp://")) {
+                    whatsap(uri.toString());
 
-                      return NavigationActionPolicy.CANCEL;
-                    }
+                    return NavigationActionPolicy.CANCEL;
+                  }
 
-                    return NavigationActionPolicy.ALLOW;
-                  },
-                ),
+                  return NavigationActionPolicy.ALLOW;
+                },
               ),
-              if (isKeyboardVisible)
-                SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
-            ]),
-            progress.value < 1.0
-                ? LinearProgressIndicator(
-                    value: progress.value,
-                  )
-                : Container(),
+            ),
+            if (isKeyboardVisible)
+              SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
           ]),
-        ),
+          progress.value < 1.0
+              ? LinearProgressIndicator(
+                  value: progress.value,
+                )
+              : Container(),
+        ]),
       ),
     );
   }

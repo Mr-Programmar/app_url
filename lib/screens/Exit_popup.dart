@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -23,7 +25,8 @@ Future<bool> showDialogApna(context) async {
           TextButton(
             onPressed: () {
               print('Yes selected');
-              Navigator.of(context).pop(true);
+              // Navigator.of(context).pop(true);
+              exit(0);
             },
             child: const Text("Yes"),
           ),
