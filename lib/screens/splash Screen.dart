@@ -1,7 +1,10 @@
+import 'package:com.GLO365.glO365/main.dart';
 import 'package:com.GLO365.glO365/screens/sign_in.dart';
+import 'package:com.GLO365.glO365/screens/webview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'home.dart';
 
@@ -55,7 +58,7 @@ class _SplashState extends State<Splash> {
             color: Colors.white,
             image: DecorationImage(
               image: AssetImage("images/splash.png"),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
         ),
@@ -71,25 +74,25 @@ class _SplashState extends State<Splash> {
 }
 
 
+class AuthCheck extends HookConsumerWidget {
+  const AuthCheck({super.key});
 
-
-
-class AuthCheck extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
     final currentUser = FirebaseAuth.instance.currentUser;
+   final prefs=ref.watch( sharedPrefencesProvider);
 
     if (currentUser != null) {
-      // User is logged in
-      return Home();
+
+      return Webview(url: prefs.getStringList('savedUrls')?.last,);
     } else {
       // User is not logged in
       return SignIn();
     }
+
+
+
+
   }
-
-
-
-
-
 }

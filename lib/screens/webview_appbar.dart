@@ -1,3 +1,4 @@
+import 'package:com.GLO365.glO365/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -46,6 +47,14 @@ AppBar webViewappBar(
           },
           icon: const Icon(
             CupertinoIcons.clear,
+          )),
+      IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Home()));
+          },
+          icon: const Icon(
+            CupertinoIcons.home,
           )),
     ],
   );

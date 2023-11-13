@@ -7,11 +7,13 @@ Future<bool> webViewExit(context, [InAppWebViewController? a]) async {
   if (await a?.canGoBack() ?? false) {
     await a!.goBack();
     return false;
-  } else {
-    Navigator.of(context).pop();
-    return false;
+  }
 
-    // return await showDialogApna(context);
+  else {
+    // Navigator.of(context).pop();
+    // return false;
+
+    return await showDialogApna(context);
   }
 }
 

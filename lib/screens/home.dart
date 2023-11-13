@@ -2,6 +2,7 @@ import 'package:com.GLO365.glO365/screens/Exit_popup.dart';
 import 'package:com.GLO365.glO365/screens/enter_url.dart';
 import 'package:com.GLO365.glO365/screens/snackbar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,10 +20,11 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class _HomeState extends ConsumerState<Home> {
+
   static final List<Widget> _widgetOptions = <Widget>[
     const EnterUrl(),
     const NotificationsScreen(),
-    const Text('Profile Page'),
+
 
   ];
 
@@ -47,6 +49,7 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   void initState() {
+
     final _connectivity = Connectivity();
     _connectivity.onConnectivityChanged.listen((result) {
       if (result == ConnectivityResult.wifi ||

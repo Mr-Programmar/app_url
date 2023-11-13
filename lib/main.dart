@@ -62,7 +62,10 @@ class _MyAppState extends ConsumerState<MyApp> {
 
 
 
-            seedColor: const Color(0xff1d2951)),
+            seedColor:Colors.indigo
+
+
+            ),
       ),
       home:
           //
