@@ -60,9 +60,9 @@ class _MyAppState extends ConsumerState<MyApp> {
         colorScheme: ColorScheme.fromSeed(
 
 
+primary: Color(0xff1d2951),
 
-
-            seedColor:Colors.indigo
+            seedColor:Color(0xff1d2951),
 
 
             ),

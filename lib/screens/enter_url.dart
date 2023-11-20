@@ -83,6 +83,7 @@ class _EnterUrlState extends ConsumerState<EnterUrl> {
         ),
       ),
       appBar: AppBar(
+
         title: const Text("Ellipse Cloud"),
         centerTitle: true,
         actions: [
@@ -123,6 +124,7 @@ class _EnterUrlState extends ConsumerState<EnterUrl> {
                 ]),
               ),
               ElevatedButton(
+
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _saveUrl(urlGetController.text);

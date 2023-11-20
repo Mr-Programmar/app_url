@@ -59,7 +59,9 @@ class _WebviewState extends ConsumerState<Webview> {
               setState(() {
                 webViewController?.reload();
               });
-            });
+            }
+
+            );
 
     // Add listener to keyboard visibility changes
     KeyboardVisibilityController().onChange.listen((bool isVisible) {
