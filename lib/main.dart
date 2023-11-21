@@ -28,6 +28,7 @@ Future main() async {
   Fcm.listenAppFCM();
   Fcm.onOpenNotificationAction();
 
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(ProviderScope(
       overrides: [sharedPrefencesProvider.overrideWithValue(prefs)],

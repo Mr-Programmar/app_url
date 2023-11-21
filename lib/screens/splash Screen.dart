@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'enter_url.dart';
 import 'home.dart';
 
 class Splash extends StatefulWidget {
@@ -85,7 +86,11 @@ class AuthCheck extends HookConsumerWidget {
 
     if (currentUser != null) {
 
-      return Webview(url: prefs.getStringList('savedUrls')?.last,);
+      final savedUrls = prefs.getStringList('savedUrls');
+      if(savedUrls==null){return Home();}
+      else {
+        return Webview(url: prefs.getStringList('savedUrls')?.last,);
+      }
     } else {
       // User is not logged in
       return SignIn();

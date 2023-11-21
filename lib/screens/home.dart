@@ -33,14 +33,12 @@ class _HomeState extends ConsumerState<Home> {
     final webcontroller = ref.watch(webcontrollerprovider);
     final flutterBottemNavIndex = ref.watch(flutter_bottem_Provider);
 
-    return SafeArea(
-      child: WillPopScope(
-        onWillPop: () => showDialogApna(context),
-        child: Scaffold(
-          bottomNavigationBar: FlutterBottemNavigationBar(),
+    return WillPopScope(
+      onWillPop: () => showDialogApna(context),
+      child: Scaffold(
+        bottomNavigationBar: FlutterBottemNavigationBar(),
 
-          body: _widgetOptions.elementAt(flutterBottemNavIndex),
-        ),
+        body: _widgetOptions.elementAt(flutterBottemNavIndex),
       ),
     );
   }

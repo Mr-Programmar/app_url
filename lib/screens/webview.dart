@@ -36,7 +36,7 @@ class _WebviewState extends ConsumerState<Webview> {
       useOnDownloadStart: true,
       javaScriptCanOpenWindowsAutomatically: true,
       javaScriptEnabled: true,
-      supportZoom: true,
+      supportZoom: false,
 
       allowUniversalAccessFromFileURLs: true,
     ),
@@ -48,20 +48,7 @@ class _WebviewState extends ConsumerState<Webview> {
   void initState() {
     super.initState();
 
-    pullToRefreshController = kIsWeb
-        ? null
-        : PullToRefreshController(
-            options: PullToRefreshOptions(
-              color: Colors.blue,
-              enabled: true,
-            ),
-            onRefresh: () async {
-              setState(() {
-                webViewController?.reload();
-              });
-            }
 
-            );
 
     // Add listener to keyboard visibility changes
     KeyboardVisibilityController().onChange.listen((bool isVisible) {

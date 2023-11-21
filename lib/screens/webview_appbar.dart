@@ -42,8 +42,8 @@ AppBar webViewappBar(
             CupertinoIcons.refresh_bold,
           )),
       IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
+          onPressed: () async{
+            await showDialogApna(context);
           },
           icon: const Icon(
             CupertinoIcons.clear,

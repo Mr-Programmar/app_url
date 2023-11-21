@@ -105,7 +105,7 @@ class _SignInState extends ConsumerState<SignUp> {
                         );
 
 
-                    bool dataSave= await     ref.read(fireStoreServicesProvider).saveUserData(
+                    bool dataSave= await     ref.read(fireStoreServicesProvider).saveDataOnFirebase(
                         name: userNameTextController.text,
                         email: emailTextController.text,
                         phone: userPhoneTextController.text,

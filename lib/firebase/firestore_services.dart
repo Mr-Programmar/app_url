@@ -12,7 +12,7 @@ class FireStoreServices {
 
   Ref ref;
 
-  Future<bool> saveUserData({
+  Future<bool> saveDataOnFirebase({
     required String name,
     required String email,
     required String phone,
@@ -43,13 +43,13 @@ class FireStoreServices {
     }
   }
 
-  saveNotifications() async {
-    //
-    // await FirebaseFirestore.instance.collection('notifications').add({
-    //   'title': title,
-    //   'body': body,
-    //   'timestamp': FieldValue.serverTimestamp(),
-    // });
+  static saveNotificationsOnFirebase({required String title, required String body}) async {
+
+    await FirebaseFirestore.instance.collection('notifications').add({
+      'title': title,
+      'body': body,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 
 

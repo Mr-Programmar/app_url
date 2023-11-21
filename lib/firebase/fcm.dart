@@ -1,11 +1,18 @@
+import 'package:com.GLO365.glO365/firebase/firestore_services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../screens/notification_screen.dart';
 
 class Fcm {
+
+  Fcm(this.ref);
+  Ref ref;
+
   static listenAppFCM() {
     FirebaseMessaging.onMessage.listen((event) async {
       print("OnApp FCM : $event");
@@ -17,6 +24,9 @@ class Fcm {
       print("----OnForegroundApp---$body");
 
       displyNotification(title: title.toString(), body: body.toString());
+      FireStoreServices.saveNotificationsOnFirebase(title: title.toString(), body: body.toString());
+
+
 
 
     });
@@ -32,11 +42,15 @@ class Fcm {
     print("-----On_background/OnTerminated ---$title");
     print("----On_background/OnTerminated---$body");
     displyNotification(title: title.toString(), body: body.toString());
+    FireStoreServices.saveNotificationsOnFirebase(title: title.toString(), body: body.toString());
+
+
 
 
   }
 
-  static generateFCMDeviceToken() {
+  static generateFCMDeviceToken() async{
+await    FirebaseMessaging.instance.requestPermission(sound: true, );
     try {
       FirebaseMessaging.instance.getToken().then((value) {
         print("Device Token: $value");
