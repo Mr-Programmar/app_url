@@ -57,13 +57,22 @@ class _EnterUrlState extends ConsumerState<EnterUrl> {
     return Scaffold(
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
+
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text(userdata?['Name'] ?? ''),
-              accountEmail: Text(userdata?['Email'] ?? ''),
+
+              accountName: Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(userdata?['Name'] ?? '',style: TextStyle(fontSize: 20)),
+              ),
+              accountEmail: Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(userdata?['Email'] ?? ''),
+              ),
               currentAccountPicture: const CircleAvatar(
-                child: Icon(Icons.person),
+
+                backgroundImage: AssetImage("images/round.png"),
+                radius: 26,
               ),
             ),
             

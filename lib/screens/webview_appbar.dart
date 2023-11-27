@@ -2,10 +2,13 @@ import 'package:com.GLO365.glO365/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../provider/provider.dart';
 import 'Exit_popup.dart';
 
 AppBar webViewappBar(
+    final ref,
     BuildContext context, InAppWebViewController? webcontroller) {
   return AppBar(
     elevation: 5,
@@ -50,6 +53,7 @@ AppBar webViewappBar(
           )),
       IconButton(
           onPressed: () {
+            ref.read(fireStoreServicesProvider).getUserData();
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => Home()));
           },

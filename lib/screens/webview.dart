@@ -64,7 +64,7 @@ class _WebviewState extends ConsumerState<Webview> {
     return WillPopScope(
       onWillPop: () => webViewExit(context, webViewController),
       child: Scaffold(
-        appBar: webViewappBar(context, webViewController),
+        appBar: webViewappBar(ref,context, webViewController),
         body: Stack(children: [
           Column(children: [
             Expanded(

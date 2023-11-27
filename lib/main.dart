@@ -55,7 +55,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       themeMode: ThemeMode.system,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      title: 'Ellipse Cloude',
+      title: 'Ellipse Cloud',
       theme: ThemeData(
 
         colorScheme: ColorScheme.fromSeed(
