@@ -55,11 +55,13 @@ class _EnterUrlState extends ConsumerState<EnterUrl> {
 
     final userdata = ref.watch(userDataProvider);
     return Scaffold(
+
       drawer: Drawer(
         child: ListView(
 
           children: [
             UserAccountsDrawerHeader(
+
 
               accountName: Padding(
                 padding: const EdgeInsets.only(left: 5),

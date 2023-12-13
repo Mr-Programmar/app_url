@@ -29,7 +29,7 @@ Future main() async {
   Fcm.onOpenNotificationAction();
 
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(ProviderScope(
       overrides: [sharedPrefencesProvider.overrideWithValue(prefs)],
       child: const MaterialApp(

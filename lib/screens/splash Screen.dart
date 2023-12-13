@@ -24,7 +24,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
 
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     Future.delayed(Duration(seconds: 3), () {
       Navigator.of(context).pushAndRemoveUntil(
@@ -52,15 +52,13 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            image: DecorationImage(
-              image: AssetImage("images/splash.png"),
-              fit: BoxFit.cover,
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            image: AssetImage("images/splash.png"),
+            fit: BoxFit.cover,
           ),
         ),
       ),
@@ -68,7 +66,7 @@ class _SplashState extends State<Splash> {
   }
   @override
   void dispose() {
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
 
     super.dispose();
   }
